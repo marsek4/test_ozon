@@ -1,0 +1,254 @@
+@property --progress {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+
+@font-face {
+  font-family: "Report";
+  src: url("../fonts/report-semi-bold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  block-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-block-size: 100%;
+  font-family: "Report", system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+  background: #ffffff;
+  color: #000;
+}
+
+input {
+  font: inherit;
+}
+
+.progress-shell {
+  min-block-size: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.progress-shell-layout {
+  position: relative;
+  flex: 1 1 auto;
+  inline-size: 100%;
+  max-inline-size: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.progress-shell-heading {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.progress-shell-region {
+  inline-size: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.progress-shell-region-main,
+.progress-shell-region-controls {
+  flex: 1 1 auto;
+}
+
+.progress {
+  inline-size: 150px;
+  block-size: 150px;
+  --animated-speed: 1.2s;
+  transition: --progress 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.progress[hidden] {
+  display: block !important;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.progress[hidden] .progress-ring {
+  animation: none;
+}
+
+.progress-ring {
+  inline-size: 100%;
+  block-size: 100%;
+  position: relative;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      #005cff 0 var(--progress, 0%),
+      #eef3f6 0 100%
+    );
+}
+
+.progress-ring::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.progress-animated .progress-ring {
+  animation: ring-spin var(--animated-speed) linear infinite;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  inline-size: fit-content;
+}
+
+.toolbar-item {
+  min-block-size: 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.toolbar-label {
+  font-size: 18px;
+  font-weight: 600;
+  user-select: none;
+}
+
+.toolbar-input {
+  inline-size: 52px;
+  block-size: 32px;
+  border: 1px solid #000000;
+  border-radius: 25px;
+  background: #ffffff;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  outline: none;
+  transition: border-color 0.25s ease, opacity 0.25s ease;
+}
+
+.toolbar-input::-webkit-outer-spin-button,
+.toolbar-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.toolbar-input:focus {
+  border-color: #005cff;
+}
+
+.toolbar-input:disabled,
+.toggle:has(input:disabled) {
+  opacity: 0.45;
+}
+
+.toggle {
+  position: relative;
+  display: inline-flex;
+  inline-size: 52px;
+  block-size: 32px;
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+}
+
+.toggle input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+}
+
+.toggle-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: #eef3f6;
+  transition: background-color 0.25s ease;
+}
+
+.toggle-track::before {
+  content: '';
+  position: absolute;
+  inline-size: 28px;
+  block-size: 28px;
+  inset-block-start: 2px;
+  inset-inline-start: 2px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease;
+}
+
+.toggle input:checked + .toggle-track {
+  background: #005cff;
+}
+
+.toggle input:checked + .toggle-track::before {
+  transform: translateX(20px);
+}
+
+.visually-hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress {
+    transition: none;
+  }
+
+  .progress-animated .progress-ring {
+    animation: none;
+  }
+}
+
+@media (min-width: 568px) {
+  .progress-shell-layout {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .progress-shell-region {
+    flex: 1 1 50%;
+    min-inline-size: 0;
+  }
+}

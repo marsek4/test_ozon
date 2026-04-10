@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Progress block</title>
+    <link rel="icon" href="./source/images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="./source/styles/styles.css" />
+  </head>
+  <body>
+    <main class="progress-shell">
+      <div class="progress-shell-layout">
+        <header class="progress-shell-heading">Progress</header>
+        <section class="progress-shell-region progress-shell-region-main">
+          <div id="progress-demo" data-progress aria-label="Task progress"></div>
+        </section>
+
+        <section class="progress-shell-region progress-shell-region-controls">
+          <div class="toolbar" aria-label="Progress controls">
+            <div class="toolbar-item">
+              <label class="visually-hidden" for="progress-value">Value</label>
+              <input
+                id="progress-value"
+                class="toolbar-input"
+                name="progress-value"
+                type="number"
+                min="0"
+                max="100"
+                value="50"
+                inputmode="numeric"
+              />
+              <span class="toolbar-label">Value</span>
+            </div>
+
+            <div class="toolbar-item">
+              <label class="toggle">
+                <input
+                  id="progress-animate"
+                  name="animated"
+                  type="checkbox"
+                  role="switch"
+                  aria-checked="false"
+                />
+                <span class="toggle-track" aria-hidden="true"></span>
+              </label>
+              <span class="toolbar-label">Animate</span>
+            </div>
+
+            <div class="toolbar-item">
+              <label class="toggle">
+                <input
+                  id="progress-hide"
+                  name="hidden"
+                  type="checkbox"
+                  role="switch"
+                  aria-checked="false"
+                />
+                <span class="toggle-track" aria-hidden="true"></span>
+              </label>
+              <span class="toolbar-label">Hide</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script type="module" src="./source/scripts/script.js"></script>
+  </body>
+</html>
